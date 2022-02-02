@@ -4,9 +4,7 @@ fn convert_fahrenheit_into_celsius(f: i32) -> i32 {
 
 fn main() {
     let mut i = String::new();
-    std::io::stdin()
-        .read_line(&mut i)
-        .ok();
+    std::io::stdin().read_line(&mut i).ok();
 
     let i: i32 = i.trim().parse().ok().unwrap();
 
