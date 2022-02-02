@@ -4,13 +4,6 @@ version = 3
 
 [[package]]
 name = "ferris-says"
-version = "0.1.0"
-dependencies = [
- "ferris-says 0.2.1",
-]
-
-[[package]]
-name = "ferris-says"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9515ec2dd9606ec230f6b2d1f25fd9e808a2f2af600143f7efe7e5865505b7aa"
@@ -18,6 +11,13 @@ dependencies = [
  "smallvec",
  "textwrap",
  "unicode-width",
+]
+
+[[package]]
+name = "ferris_says"
+version = "0.1.0"
+dependencies = [
+ "ferris-says",
 ]
 
 [[package]]

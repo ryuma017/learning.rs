@@ -121,14 +121,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix-tut"
-version = "0.1.0"
-dependencies = [
- "actix-rt",
- "actix-web",
-]
-
-[[package]]
 name = "actix-utils"
 version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -187,6 +179,14 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "actix_tut"
+version = "0.1.0"
+dependencies = [
+ "actix-rt",
+ "actix-web",
 ]
 
 [[package]]
