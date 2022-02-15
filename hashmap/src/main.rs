@@ -1,6 +1,6 @@
 #![allow(unused)]
 
-use std::{ collections::HashMap, str::SplitAsciiWhitespace};
+use std::{collections::HashMap, str::SplitAsciiWhitespace};
 
 fn main() {
     /// ハッシュマップを生成してキーと値を挿入する
@@ -77,7 +77,7 @@ fn main() {
         numbers.sort(); // try: `v.sort_unstable()`ってclippyが言ってた。等しい要素の順序が保証されないけど高速らしい。
         let mid = numbers.len() / 2;
         if numbers.len() % 2 == 0 {
-            (numbers[mid-1] + numbers[mid]) / 2
+            (numbers[mid - 1] + numbers[mid]) / 2
         } else {
             numbers[mid]
         }
@@ -93,9 +93,9 @@ fn main() {
         let max_value = map.values().cloned().max().unwrap();
 
         map.into_iter()
-        .filter(|&(_, v)| v == max_value)
-        .map(|(&k, _)| k)
-        .collect()
+            .filter(|&(_, v)| v == max_value)
+            .map(|(&k, _)| k)
+            .collect()
     };
 
     println!("{:?}", numbers);
