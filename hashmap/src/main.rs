@@ -1,6 +1,6 @@
 #![allow(unused)]
 
-use std::{collections::HashMap, str::SplitAsciiWhitespace};
+use std::collections::HashMap;
 
 fn main() {
     /// ハッシュマップを生成してキーと値を挿入する
