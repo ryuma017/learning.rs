@@ -11,5 +11,6 @@ fn main() {
 
             out.send(response)
         }
-    }).unwrap()
+    })
+    .unwrap()
 }

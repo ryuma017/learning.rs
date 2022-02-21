@@ -11,5 +11,6 @@ fn main() {
             println!("Got message: {}", msg);
             out.close(CloseCode::Normal)
         }
-    }).unwrap()
+    })
+    .unwrap()
 }
