@@ -102,4 +102,12 @@ fn main() {
     println!("mean: {}", mean);
     println!("median: {}", median);
     println!("mode: {}", mode[0]);
+
+    // 既知の項目リストを持つHashMapは、配列から初期化できる
+    let solar_distance = HashMap::from([
+        ("Mercury", 0.4),
+        ("Venus", 0.7),
+        ("Earth", 1.0),
+        ("Mars", 1.5),
+    ]);
 }
