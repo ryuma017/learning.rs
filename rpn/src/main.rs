@@ -10,11 +10,11 @@ fn main() {
     let tokens = s.split_whitespace();
     for tok in tokens {
         let t = tok.trim();
-        match  t.parse::<f64>() {
+        match t.parse::<f64>() {
             Ok(v) => {
                 stack.push(v);
                 continue;
-            },
+            }
             Err(_) => 0.0,
         };
 
@@ -25,7 +25,7 @@ fn main() {
             "-" => stack.push(a - b),
             "*" => stack.push(a * b),
             "/" => stack.push(a / b),
-            _ => panic!("invalid operator")
+            _ => panic!("invalid operator"),
         }
     }
 
