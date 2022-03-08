@@ -11,7 +11,7 @@ fn main() {
 
     let mut width = d;
 
-    for _ in 0..n-1 {
+    for _ in 0..n - 1 {
         let x: i32 = {
             let mut line = String::new();
             std::io::stdin().read_line(&mut line).unwrap();
@@ -21,5 +21,5 @@ fn main() {
         width += d - x;
     }
 
-    println!{"{}", width*d};
+    println! {"{}", width*d};
 }
