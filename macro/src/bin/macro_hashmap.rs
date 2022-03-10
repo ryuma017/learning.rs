@@ -10,7 +10,7 @@ macro_rules! hashmap {
 }
 
 fn main() {
-    // マクロを利用してHashMapを初期化 --- (*5)
+    // マクロを利用してHashMapを初期化
     let week = hashmap![
         "mon" => "月曜",
         "tue" => "火曜",
