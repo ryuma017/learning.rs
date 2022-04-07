@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Ryuma",
+    "age": 21,
+    "have_gf": true
+  },
+  {
+    "name": "Tengo",
+    "age": 19,
+    "have_gf": false
+  },
+  {
+    "name": "Nagi",
+    "age": 19,
+    "have_gf": false
+  }
+]
