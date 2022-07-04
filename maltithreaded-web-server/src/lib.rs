@@ -1,6 +1,8 @@
 use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 
+type Job = Box<dyn FnOnce() + Send + 'static>;
+
 pub struct ThreadPool {
     workers: Vec<Worker>,
     sender: mpsc::Sender<Job>,
@@ -34,7 +36,8 @@ impl ThreadPool {
     where
         F: FnOnce() + Send + 'static,
     {
-        unimplemented!()
+        let job = Box::new(f);
+        self.sender.send(job).unwrap();
     }
 }
 
@@ -52,5 +55,3 @@ impl Worker {
         Worker { id, thread }
     }
 }
-
-struct Job;
