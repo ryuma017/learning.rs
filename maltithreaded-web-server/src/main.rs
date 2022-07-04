@@ -1,4 +1,4 @@
-use std::fs;
+use std::fs::File;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 
@@ -19,29 +19,19 @@ fn handle_connection(mut stream: TcpStream) {
 
     let get = b"GET / HTTP/1.1\r\n";
 
-    if buffer.starts_with(get) {
-        let status_line = "HTTP/1.1 200 OK";
-        let contents = fs::read_to_string("hello.html").unwrap();
-        let response = format!(
-            "{}\r\nContent-Length: {}\r\n\r\n{}",
-            status_line,
-            contents.len(),
-            contents
-        );
-        stream.write(response.as_bytes()).unwrap();
-        stream.flush().unwrap();
+    let (status_line, filename) = if buffer.starts_with(get) {
+        ("HTTP/1.1 200 OK\r\n\r\n", "hello.html")
     } else {
-        let status_line = "HTTP/1.1 404 NOT FOUND";
-        let contents = fs::read_to_string("404.html").unwrap();
+        ("HTTP/1.1 404 NOT FOUND\n\r\n\r", "404.html")
+    };
 
-        let response = format!(
-            "{}\r\nContent-Length: {}\r\n\r\n{}",
-            status_line,
-            contents.len(),
-            contents
-        );
+    let mut file = File::open(filename).unwrap();
+    let mut contents = String::new();
 
-        stream.write(response.as_bytes()).unwrap();
-        stream.flush().unwrap();
-    }
+    file.read_to_string(&mut contents).unwrap();
+
+    let response = format!("{}{}", status_line, contents);
+
+    stream.write(response.as_bytes()).unwrap();
+    stream.flush().unwrap();
 }
