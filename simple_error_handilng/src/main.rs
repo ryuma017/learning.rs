@@ -8,6 +8,17 @@ use std::io;
 use error_stack::{IntoReport, Report, Result, ResultExt};
 
 #[derive(Debug)]
+struct ParsePaymentInfoError;
+
+impl fmt::Display for ParsePaymentInfoError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str("Parsing payment error: invalid payment info")
+    }
+}
+
+impl Error for ParsePaymentInfoError {}
+
+#[derive(Debug)]
 struct Card {
     number: u32,
     exp: Expiration,
@@ -41,15 +52,24 @@ fn parse_card(card: &str) -> Card {
     }
 }
 
-fn parse_card_numbers(card: &str) -> Vec<u32> {
+fn parse_card_numbers(card: &str) -> Result<Vec<u32>, ParsePaymentInfoError> {
     let numbers = card
         .split(' ')
-        // .into_iter()
-        .map(|s| s.parse())
+        .into_iter()
+        .map(|s| {
+            s.parse()
+            .report()
+            .attach_printable_lazy(|| {
+                format!("{s:?} could not be parsed as u32")
+            })
+        })
         .collect::<Result<Vec<u32>, _>>()
-        .unwrap();
+        .change_context(ParsePaymentInfoError)
+        .attach_printable(format!(
+            "Failed to parse input as number. Input: {card}"
+        ))?;
 
-    numbers
+    Ok(numbers)
 }
 
 fn main() {
