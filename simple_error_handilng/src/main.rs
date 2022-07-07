@@ -1,19 +1,23 @@
 #![allow(dead_code)]
 
-use std::io;
 use std::collections::HashMap;
+use std::error::Error;
+use std::fmt;
+use std::io;
+
+use error_stack::{IntoReport, Report, Result, ResultExt};
 
 #[derive(Debug)]
 struct Card {
     number: u32,
     exp: Expiration,
-    cvv: u32
+    cvv: u32,
 }
 
 #[derive(Debug)]
 struct Expiration {
     year: u32,
-    month: u32
+    month: u32,
 }
 
 fn get_credit_card_info(credit_cards: &HashMap<&str, &str>, name: &str) -> Card {
@@ -33,7 +37,7 @@ fn parse_card(card: &str) -> Card {
     Card {
         number,
         exp: Expiration { year, month },
-        cvv
+        cvv,
     }
 }
 
@@ -41,9 +45,7 @@ fn parse_card_numbers(card: &str) -> Vec<u32> {
     let numbers = card
         .split(' ')
         // .into_iter()
-        .map(|s| {
-            s.parse()
-        })
+        .map(|s| s.parse())
         .collect::<Result<Vec<u32>, _>>()
         .unwrap();
 
@@ -61,7 +63,9 @@ fn main() {
 
     let mut name = String::new();
 
-    io::stdin().read_line(&mut name).expect("Failed to read line.");
+    io::stdin()
+        .read_line(&mut name)
+        .expect("Failed to read line.");
 
     let result = get_credit_card_info(&credit_cards, name.trim());
 
