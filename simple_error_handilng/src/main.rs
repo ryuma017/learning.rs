@@ -19,6 +19,20 @@ impl fmt::Display for ParsePaymentInfoError {
 impl Error for ParsePaymentInfoError {}
 
 #[derive(Debug)]
+enum CreditCardError {
+    InvalidInput(String),
+    Other
+}
+
+impl fmt::Display for CreditCardError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str("Credit card error: Could not retrieve credit card.")
+    }
+}
+
+impl Error for CreditCardError {}
+
+#[derive(Debug)]
 struct Card {
     number: u32,
     exp: Expiration,
@@ -31,14 +45,32 @@ struct Expiration {
     month: u32,
 }
 
-fn get_credit_card_info(credit_cards: &HashMap<&str, &str>, name: &str) -> Card {
-    let card_string = credit_cards.get(name).unwrap();
+fn get_credit_card_info(credit_cards: &HashMap<&str, &str>, name: &str) -> Result<Card, CreditCardError> {
+    let card_string = credit_cards.get(name).ok_or_else(|| {
+        let msg = format!("No credit card was found for {name}");
+        Report::new(CreditCardError::InvalidInput(msg.clone()))
+            .attach_printable(msg)
+    })?;
 
-    parse_card(card_string)
+    let card = parse_card(card_string)
+        .change_context(CreditCardError::Other)
+        .attach_printable(format!("{name}'s card could not be parsed."))?;
+
+    Ok(card)
 }
 
 fn parse_card(card: &str) -> Result<Card, ParsePaymentInfoError> {
     let mut numbers = parse_card_numbers(card)?;
+
+    let expected_len = 4;
+    let len = numbers.len();
+
+    if len != expected_len {
+        return Err(Report::new(ParsePaymentInfoError))
+            .attach_printable(format!(
+                "Incorrect number of elements parsed. Expected {expected_len} but got {len}. Elements: {numbers:?}"
+            ))
+    }
 
     let cvv = numbers.pop().unwrap();
     let year = numbers.pop().unwrap();
