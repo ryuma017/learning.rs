@@ -21,7 +21,7 @@ impl Error for ParsePaymentInfoError {}
 #[derive(Debug)]
 enum CreditCardError {
     InvalidInput(String),
-    Other
+    Other,
 }
 
 impl fmt::Display for CreditCardError {
@@ -45,11 +45,13 @@ struct Expiration {
     month: u32,
 }
 
-fn get_credit_card_info(credit_cards: &HashMap<&str, &str>, name: &str) -> Result<Card, CreditCardError> {
+fn get_credit_card_info(
+    credit_cards: &HashMap<&str, &str>,
+    name: &str,
+) -> Result<Card, CreditCardError> {
     let card_string = credit_cards.get(name).ok_or_else(|| {
         let msg = format!("No credit card was found for {name}");
-        Report::new(CreditCardError::InvalidInput(msg.clone()))
-            .attach_printable(msg)
+        Report::new(CreditCardError::InvalidInput(msg.clone())).attach_printable(msg)
     })?;
 
     let card = parse_card(card_string)
@@ -69,7 +71,7 @@ fn parse_card(card: &str) -> Result<Card, ParsePaymentInfoError> {
         return Err(Report::new(ParsePaymentInfoError))
             .attach_printable(format!(
                 "Incorrect number of elements parsed. Expected {expected_len} but got {len}. Elements: {numbers:?}"
-            ))
+            ));
     }
 
     let cvv = numbers.pop().unwrap();
@@ -78,10 +80,10 @@ fn parse_card(card: &str) -> Result<Card, ParsePaymentInfoError> {
     let number = numbers.pop().unwrap();
 
     Ok(Card {
-            number,
-            exp: Expiration { year, month },
-            cvv,
-        })
+        number,
+        exp: Expiration { year, month },
+        cvv,
+    })
 }
 
 fn parse_card_numbers(card: &str) -> Result<Vec<u32>, ParsePaymentInfoError> {
@@ -90,16 +92,12 @@ fn parse_card_numbers(card: &str) -> Result<Vec<u32>, ParsePaymentInfoError> {
         .into_iter()
         .map(|s| {
             s.parse()
-            .report()
-            .attach_printable_lazy(|| {
-                format!("{s:?} could not be parsed as u32")
-            })
+                .report()
+                .attach_printable_lazy(|| format!("{s:?} could not be parsed as u32"))
         })
         .collect::<Result<Vec<u32>, _>>()
         .change_context(ParsePaymentInfoError)
-        .attach_printable(format!(
-            "Failed to parse input as number. Input: {card}"
-        ))?;
+        .attach_printable(format!("Failed to parse input as number. Input: {card}"))?;
 
     Ok(numbers)
 }
@@ -130,7 +128,7 @@ fn main() {
         Err(err) => {
             match err.current_context() {
                 CreditCardError::InvalidInput(msg) => println!("\n{msg}"),
-                CreditCardError::Other => println!("\nSomething went wrong. Try again.")
+                CreditCardError::Other => println!("\nSomething went wrong. Try again."),
             }
 
             log::error!("\n{err:?}");
