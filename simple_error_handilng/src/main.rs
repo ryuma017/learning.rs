@@ -105,6 +105,8 @@ fn parse_card_numbers(card: &str) -> Result<Vec<u32>, ParsePaymentInfoError> {
 }
 
 fn main() {
+    env_logger::init();
+
     let credit_cards = HashMap::from([
         ("Ryuma", "1234567 07 25 123"),
         ("Rio", "1234567 10 22 123"),
@@ -121,5 +123,17 @@ fn main() {
 
     let result = get_credit_card_info(&credit_cards, name.trim());
 
-    println!("\nCredit Card Info: {result:?}");
+    match result {
+        Ok(card) => {
+            println!("\nCredit Card Info: {card:?}");
+        }
+        Err(err) => {
+            match err.current_context() {
+                CreditCardError::InvalidInput(msg) => println!("\n{msg}"),
+                CreditCardError::Other => println!("\nSomething went wrong. Try again.")
+            }
+
+            log::error!("\n{err:?}");
+        }
+    }
 }
