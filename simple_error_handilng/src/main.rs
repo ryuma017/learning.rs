@@ -37,19 +37,19 @@ fn get_credit_card_info(credit_cards: &HashMap<&str, &str>, name: &str) -> Card 
     parse_card(card_string)
 }
 
-fn parse_card(card: &str) -> Card {
-    let mut numbers = parse_card_numbers(card);
+fn parse_card(card: &str) -> Result<Card, ParsePaymentInfoError> {
+    let mut numbers = parse_card_numbers(card)?;
 
     let cvv = numbers.pop().unwrap();
     let year = numbers.pop().unwrap();
     let month = numbers.pop().unwrap();
     let number = numbers.pop().unwrap();
 
-    Card {
-        number,
-        exp: Expiration { year, month },
-        cvv,
-    }
+    Ok(Card {
+            number,
+            exp: Expiration { year, month },
+            cvv,
+        })
 }
 
 fn parse_card_numbers(card: &str) -> Result<Vec<u32>, ParsePaymentInfoError> {
