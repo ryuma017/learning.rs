@@ -1,1 +1,1 @@
-## study repository for Rust
+A repository for learning Rust
