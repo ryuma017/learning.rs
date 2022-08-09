@@ -36,7 +36,7 @@ mod my_module {
             let transformed: String = match command {
                 Command::Uppercase => string.to_uppercase(),
                 Command::Trim => string.trim().to_owned(),
-                Command::Append(n) => string.to_owned() + &"bar".repeat(*n),
+                Command::Append(n) => format!("{string}{}", "bar".repeat(*n)),
             };
             output.push(transformed)
         }
