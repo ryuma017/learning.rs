@@ -1,0 +1,42 @@
+[submodule "actix-sockets"]
+	path = actix-sockets
+	url = https://github.com/ryuma017/actix-sockets.git
+[submodule "actix-todo"]
+	path = actix-todo
+	url = https://github.com/ryuma017/axtix-todo.git
+[submodule "actix-web-on-cloud-run"]
+	path = actix-web-on-cloud-run
+	url = https://github.com/ryuma017/actix-web-on-cloud-run.git
+[submodule "crabcan"]
+	path = crabcan
+	url = git@github.com:ryuma017/crabcan.git
+[submodule "game-of-life"]
+	path = game-of-life
+	url = git@github.com:ryuma017/game-of-life.git
+[submodule "grpc-hello"]
+	path = grpc-hello
+	url = git@github.com:ryuma017/grpc-hello.git
+[submodule "lambda-rust-example"]
+	path = lambda-rust-example
+	url = https://github.com/ryuma017/lambda-rust-example.git
+[submodule "mini-actor"]
+	path = mini-actor
+	url = git@github.com:ryuma017/mini-actor.git
+[submodule "MVC-like_actix"]
+	path = MVC-like_actix
+	url = https://github.com/ryuma017/MVC-like_actix.git
+[submodule "plantuml-encoding"]
+	path = plantuml-encoding
+	url = https://github.com/ryuma017/plantuml-encoding.git
+[submodule "t8blog"]
+	path = t8blog
+	url = https://github.com/ryuma017/t8blog.git
+[submodule "todo-backend-api-on-lambda"]
+	path = todo-backend-api-on-lambda
+	url = https://github.com/ryuma017/todo-backend-api-on-lambda.git
+[submodule "tour-of-rust"]
+	path = tour-of-rust
+	url = https://github.com/ryuma017/tour-of-rust.git
+[submodule "yew-counter-app"]
+	path = yew-counter-app
+	url = https://github.com/ryuma017/yew-counter-app.git
