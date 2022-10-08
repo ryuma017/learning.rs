@@ -40,3 +40,6 @@
 [submodule "yew-counter-app"]
 	path = yew-counter-app
 	url = https://github.com/ryuma017/yew-counter-app.git
+[submodule "zip-pw-finder"]
+	path = zip-pw-finder
+	url = https://github.com/ryuma017/zip-pw-finder.git
