@@ -22,9 +22,9 @@
 [submodule "mini-actor"]
 	path = mini-actor
 	url = git@github.com:ryuma017/mini-actor.git
-[submodule "MVC-like_actix"]
+[submodule "MVC-like-actix"]
 	path = MVC-like_actix
-	url = https://github.com/ryuma017/MVC-like_actix.git
+	url = https://github.com/ryuma017/MVC-like-actix.git
 [submodule "plantuml-encoding"]
 	path = plantuml-encoding
 	url = https://github.com/ryuma017/plantuml-encoding.git
