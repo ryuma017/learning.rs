@@ -43,3 +43,6 @@
 [submodule "zip-pw-finder"]
 	path = zip-pw-finder
 	url = https://github.com/ryuma017/zip-pw-finder.git
+[submodule "shaku-mutex-example"]
+	path = shaku-mutex-example
+	url = https://github.com/ryuma017/shaku-mutex-example
