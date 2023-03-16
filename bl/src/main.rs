@@ -1,9 +1,8 @@
 use anyhow::Result;
 use std::{
     env,
-    ffi::OsStr,
     fmt, fs,
-    io::{self, Write},
+    io::{Write},
     ops::Deref,
     path::{Path, PathBuf},
 };
