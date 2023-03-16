@@ -10,20 +10,6 @@ use std::{
 #[derive(Debug)]
 struct Revision(String);
 
-impl Revision {
-    fn as_split_path(&self) -> PathBuf {
-        let mut split = PathBuf::new();
-        let mut s = 0;
-        let mut e = 2;
-        for _ in 0..4 {
-            split.push(&self.0[s..e]);
-            s += 2;
-            e += 2;
-        }
-        split
-    }
-}
-
 impl From<usize> for Revision {
     fn from(v: usize) -> Self {
         Self(format!("{v:08X}"))
@@ -51,6 +37,20 @@ where
 {
     fn as_ref(&self) -> &T {
         self.deref().as_ref()
+    }
+}
+
+impl Revision {
+    fn as_split_path(&self) -> PathBuf {
+        let mut split = PathBuf::new();
+        let mut s = 0;
+        let mut e = 2;
+        for _ in 0..4 {
+            split.push(&self[s..e]);
+            s += 2;
+            e += 2;
+        }
+        split
     }
 }
 
