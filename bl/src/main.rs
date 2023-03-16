@@ -99,8 +99,11 @@ impl DiffFiles {
                 break;
             }
             paths.push(
-                dir.join(Path::new(&format!("{latest_revision}_{}", Revision::from(revision_diff))))
-                    .with_extension(Self::EXTENSION),
+                dir.join(Path::new(&format!(
+                    "{latest_revision}_{}",
+                    Revision::from(revision_diff)
+                )))
+                .with_extension(Self::EXTENSION),
             );
             cnt += 1;
             revision_diff -= 1;
